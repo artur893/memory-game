@@ -4,10 +4,10 @@ import './gamelogic.css'
 const DisplayCards = (props) => {
     return (
         <div className="cardsContainer">
-            <div className="card">{props.card0}</div>
-            <div className="card">{props.card1}</div>
-            <div className="card">{props.card2}</div>
-            <div className="card">{props.card3}</div>
+            <div className="card" onClick={props.onclick}>{props.card0}</div>
+            <div className="card" onClick={props.onclick}>{props.card1}</div>
+            <div className="card" onClick={props.onclick}>{props.card2}</div>
+            <div className="card" onClick={props.onclick}>{props.card3}</div>
         </div>
     )
 }
