@@ -7,6 +7,11 @@ const Header = (props) => {
     )
 }
 
+const Win = (props) => {
+    if (props.score === 4) { return <div>YOU WON!</div> }
+
+}
+
 const CardsCollection = () => {
     const [cards, setCards] = useState([{ title: "card-0" }, { title: "card-1" }, { title: "card-2" }, { title: "card-3" }])
     const [clickedCards, setClickedCards] = useState([])
@@ -15,6 +20,7 @@ const CardsCollection = () => {
 
     useEffect(() => {
         shuffleCards()
+        updateHighScore()
     })
 
     const shuffleCards = () => {
@@ -27,18 +33,33 @@ const CardsCollection = () => {
         const pickedTitle = e.target.innerHTML
         if (clickedCards.includes(pickedTitle) === false) {
             setClickedCards([...clickedCards, pickedTitle])
+            updateScore()
         }
-        else (console.log("LOSE!"))
-        console.log(clickedCards)
+        else {
+            resetGame()
+        }
+    }
+
+    const resetGame = () => {
+        setClickedCards([])
+        setScore(0)
     }
 
     const updateScore = () => {
         setScore(score + 1)
     }
 
+    const updateHighScore = () => {
+        if (score >= highScore) {
+            setHighScore(score)
+        }
+    }
+
+
     return (
         <div>
             <Header score={score} highScore={highScore} />
+            <Win score={score} />
             <DisplayCards
                 card0={cards[0].title}
                 card1={cards[1].title}
@@ -46,7 +67,7 @@ const CardsCollection = () => {
                 card3={cards[3].title}
                 onclick={pickCard}
             />
-            <button onClick={updateScore}>SCORE!</button>
+            <button onClick={resetGame}>RESET GAME</button>
         </div>
     )
 }
